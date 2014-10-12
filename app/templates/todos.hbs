@@ -2,10 +2,15 @@
 
 <section id="main">
   <ul id="todo-list">
-    {{#each}}
-        <li {{bind-attr class="isCompleted:completed"}}>
+  <!-- Below, telling our template what controller to use for each todo -->
+    {{#each itemController="todo"}} 
+        <li {{bind-attr class="isCompleted:completed isEditing:editing"}}>
+          {{#if isEditing}}
+            <input class="edit">
+          {{else}}  
             {{input type="checkbox" checked=isCompleted class="toggle"}}
-            <label>{{title}}</label><button class="destroy"></button>
+            <label {{action "editTodo" on="doubleClick"}}>{{title}}</label><button class="destroy"></button>
+          {{/if}}  
         </li>
     {{/each}}
   </ul>
